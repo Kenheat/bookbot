@@ -6,20 +6,16 @@ def number_of_words(text):
 # Returns a dictionary where the keys are a single character and
 # the values are the total number of times the single character appears in the text
 def number_of_characters(text):
-    lowercase_text = text.lower()
+    char_count_dict = {}
 
-    unique_characters = []
-
-    for i in lowercase_text:
-        if i not in unique_characters:
-            unique_characters.append(i)
-
-    character_count_dict = {}
+    for char in text:
+        lc_char = char.lower()
+        if lc_char not in char_count_dict:
+            char_count_dict[lc_char] = 1
+        else:
+            char_count_dict[lc_char] += 1
     
-    for i in unique_characters:
-        character_count_dict[i] = lowercase_text.count(i)
-    
-    return character_count_dict
+    return char_count_dict
 
 # A function that takes a dictionary and returns the value of the "num" key.
 # This is how the '.sort()' method knows how to sort the list of dictionaries.
@@ -41,19 +37,13 @@ def sorted_character_list(dictionary):
             
     return list_of_dicts
 
-# Returns an ordered string of character count.
-def report_character_count(list_of_dicts):
-    new_list = []
-
+def print_report(book_path, word_count, list_of_dicts):
+    print("============ BOOKBOT ============")
+    print(f"Analyzing book found at {book_path}...")
+    print("----------- Word Count ----------")
+    print(f"Found {word_count} total words")
+    print("--------- Character Count -------")
     for dict in list_of_dicts:
         if dict["char"].isalpha():
-            new_list.append(f"{dict["char"]}: {dict["num"]}")
-    
-    new_string = ""
-
-    for string in new_list:
-        new_string = new_string + string + "\n"
-
-    refined_string = new_string.strip()
-
-    return refined_string
+            print(f"{dict["char"]}: {dict["num"]}")
+    print("============= END ===============")
